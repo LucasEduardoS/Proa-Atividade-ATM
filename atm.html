@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+		var saldo = 100.5; //Float 1.36
+		var nome = prompt("Olá, bem vindo ao caixa eletrônico do Banco Mão de Vaca. Por favor, informe o seu nome: ")
+		alert("Olá " + nome + "! É um prazer ter você por aqui!")
+		function inicio() {
+            
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferencia 6.) Sair'));
+            if (escolha === 1 || escolha === 2 || escolha === 3 || escolha === 5) {
+                var senha = parseInt(prompt("Digite sua senha de quatro dígitos, por favor: "));
+                if (senha != 3589) {
+                    alert("Senha Incorreta. Tente novamente")
+                    inicio();
+                }
+            }
+			switch(escolha) {
+				case 1:
+					ver_saldo();
+					break;
+				case 2:
+					ver_extrato();
+					break;
+				case 3:
+					fazer_saque();
+					break;
+				case 4:
+					fazer_deposito();
+					break;
+				case 5:
+					fazer_transferencia();
+					break;
+				case 6:
+					sair();
+					break;
+				default:
+					erro();
+					break;
+			}
+			
+		}		
+
+		function ver_saldo() {
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+		}
+
+		function ver_extrato() {
+			alert("------------------------ EXTRATO BANCÁRIO ATUAL ------------------------ Sunga para Texugo ---------------------------------------------- R$ 20,00 Pão de Forma da Marca Breches ------------------------------ R$ 500,00 Bolo de Cenoura ------------------------------------------------- R$ 100,00 Curso de Linguagem Lua - By Denilton ---------------------- R$ 1.000,00 Curso de Canva - By Igor --------------------------------------- R$ 700,00 Curso de Violão - By Sérgio ------------------------------------ R$ 300,00 Jaleco de Biomédica --------------------------------------------- R$ 250,00 Chocalho ----------------------------------------------------------- R$ 70,00 Fazenda do Rafael ------------------------------------------ R$ 100.000,00 Estudar da Equipe 5 ------------------------------------ Não tem preço S2")
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			// Not a Number
+			if (isNaN(deposito) || deposito === '' || deposito <= 0) {
+				alert('Por favor, informe um número:');
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_transferencia() {
+			var conta = parseInt(prompt("Por favor, digite o número da conta para depósito: "))
+			var valor = parseInt(prompt("Digite o valor a ser transferido, por favor: "))
+			if (valor <= saldo || valor > 0) {
+				alert("Transferência concluída com sucesso. O valor de " + valor + " foi transferido para a conta " + conta + ". Seu saldo atual é de " + saldo + ".")
+			} else {
+				alert("Operação não autorizada")
+				inicio();
+			}
+		}
+		function fazer_saque() {
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else {
+				if (saque > saldo || saque <= 0){
+					alert("Operação não autorizada")
+					fazer_saque();
+				} else {
+					saldo -= saque;
+					ver_saldo();
+				}
+			}
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+                alert(nome + ", foi um prazer ter você por aqui!")
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		
+		
+		inicio();
+	</script>
+</body>
+</html>
